@@ -20,7 +20,6 @@ class FinanceService:
                 total_price = total_price - avg_price * float(h.executedQty)
                 total_volume = total_volume - float(h.executedQty)
                 profit = profit + ((float(h.price) - float(avg_price)) * float(h.executedQty))
-                print()
 
         pnl = (float(current_price) - float(avg_price)) * 100 / float(current_price)
         avg_data['asset'] = asset

@@ -21,9 +21,6 @@ class BinanceService:
         index_counter = 0
         for asset_raw in assets_raw:
             if float(asset_raw['free']) > 0 or float(asset_raw['locked']) > 0:
-                # if asset_raw['asset'] != 'SOL':
-                #     continue
-
                 if asset_raw['asset'] in ignore_currencies:
                     continue
                 if asset_raw['asset'] == 'USDT':
@@ -50,22 +47,6 @@ class BinanceService:
                 pair = asset_raw['asset'] + 'USDT'
                 current_price = self.client.get_avg_price(symbol=pair)['price']
                 avg_data = FinanceService.calculate_avg_price(history, asset_raw['asset'], current_price)
-                total_price = 0
-                total_volume = 0
-                avg_price = 0
-
-                for h in history:
-                    if h.side == 'BUY':
-                        total_price = total_price + float(h.price) * float(h.executedQty)
-                        total_volume = total_volume + float(h.executedQty)
-                    elif h.side == 'SELL':
-                        total_price = total_price - float(h.price) * float(h.executedQty)
-                        total_volume = total_volume - float(h.executedQty)
-
-                if total_volume > 0:
-                    avg_price = total_price / total_volume
-
-                pnl = (float(current_price) - float(avg_price)) * 100 / float(current_price)
 
                 amount_in_usdt = FinanceService.get_amount_in_usdt(float(asset_raw['free']) + float(asset_raw['locked']), float(current_price))
 
