@@ -3,7 +3,6 @@ import time
 
 from core.models.asset_history import AssetHistoryRow
 from core.services.binance.binance_client import BinanceClient
-from core.services.date.date_service import DateService
 from core.services.finance.finance_service import FinanceService
 
 
